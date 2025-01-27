@@ -4,38 +4,61 @@
 - 💞️ I’m looking to collaborate on ...
 - 📫 How to reach me in instagram _raffipoghosyan
 
-function import_csv_to_posts($file_path) {
-    if (!file_exists($file_path)) {
-        die("CSV file not found.");
-    }
 
-    $csv = array_map('str_getcsv', file($file_path));
+<?php
+function import_csv_page() {
+    ?>
+    <div class="wrap">
+        <h2>CSV Ներմուծում</h2>
+        <form method="post" enctype="multipart/form-data">
+            <input type="file" name="csv_file" required>
+            <input type="submit" name="import_csv" value="Ներմուծել CSV">
+        </form>
+    </div>
+    <?php
 
-    // Extract header row
-    $headers = array_shift($csv);
-
-    foreach ($csv as $row) {
-        $post_data = array_combine($headers, $row);
-
-        // Create a new post
-        $post_id = wp_insert_post([
-            'post_title'   => sanitize_text_field($post_data['Title']),
-            'post_content' => sanitize_textarea_field($post_data['Content']),
-            'post_date'    => $post_data['Date'],
-            'post_status'  => 'publish',
-            'post_type'    => 'post',
-        ]);
-
-        if ($post_id && !is_wp_error($post_id)) {
-            // Assign categories if provided
-            if (!empty($post_data['Category'])) {
-                $category_ids = explode(',', $post_data['Category']);
-                wp_set_post_categories($post_id, $category_ids);
-            }
-            echo "Post imported successfully: " . $post_data['Title'] . "<br>";
-        }
+    if (isset($_POST['import_csv'])) {
+        handle_csv_upload();
     }
 }
 
-// Usage
-import_csv_to_posts('path/to/your/file.csv');
+function handle_csv_upload() {
+    if (!empty($_FILES['csv_file']['tmp_name'])) {
+        $file = $_FILES['csv_file']['tmp_name'];
+
+        $csv_data = array_map('str_getcsv', file($file));
+        $headers = array_shift($csv_data);
+
+        foreach ($csv_data as $row) {
+            $post_data = array_combine($headers, $row);
+
+            // Ստեղծում ենք գրառում
+            $post_id = wp_insert_post([
+                'post_title'   => sanitize_text_field($post_data['Title']),
+                'post_content' => sanitize_textarea_field($post_data['Content']),
+                'post_date'    => $post_data['Date'],
+                'post_status'  => 'publish',
+                'post_type'    => 'post',
+            ]);
+
+            if ($post_id && !is_wp_error($post_id)) {
+                echo '<p>Գրառումը հաջողությամբ ավելացվեց: ' . $post_data['Title'] . '</p>';
+            } else {
+                echo '<p>Սխալ գրառման ներմուծման ժամանակ:</p>';
+            }
+        }
+    } else {
+        echo '<p>Խնդրում ենք վերբեռնել CSV ֆայլ:</p>';
+    }
+}
+
+add_action('admin_menu', function() {
+    add_menu_page(
+        'CSV Ներմուծում',  // Էջի վերնագիր
+        'CSV Ներմուծում',  // Մենյուի անունը
+        'manage_options',  // Իրավունքները
+        'import-csv',      // Slug (URL-ում երևացող անուն)
+        'import_csv_page'  // Callback function
+    );
+});
+
