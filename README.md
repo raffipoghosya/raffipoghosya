@@ -1,14 +1,20 @@
-👋 Hi, I'm Raffi Poghosyan — a passionate Full-Stack Developer.
+👋 Hi, I'm Raffi Poghosyan — a passionate Full-Stack and Mobile Developer.
 
-🧠 I specialize in building modern web applications using:
-- Frontend: React.js, Next.js, Tailwind CSS
-- Backend: Node.js (Express), Laravel (PHP), RESTful APIs
-- Databases: MySQL, MongoDB, Firebase
+🧠 I specialize in building modern, scalable applications across web and mobile platforms.
 
-💼 I'm currently working as a **Middle Full-Stack Developer** and continuously improving my skills in scalable system architecture and clean UI/UX.
+🚀 Tech Stack:
+Frontend: React.js, Next.js, Angular, Tailwind CSS, Bootstrap 5, CSS3
 
-📚 Currently diving deeper into advanced React patterns and TypeScript.
+Backend: Node.js (Express), PHP (Laravel), RESTful APIs
 
-🤝 Open to collaboration on real-world web apps, especially tools that make life easier for developers or small businesses.
+Mobile: Flutter (Dart), React Native
+
+Databases: MySQL, MongoDB, Firebase
+
+💼 I'm currently working as a Middle Full-Stack Developer, constantly improving my skills in scalable system architecture, clean UI/UX, and cross-platform development.
+
+📚 Currently diving deeper into advanced React patterns, TypeScript, and mobile development best practices.
+
+🤝 Open to collaboration on impactful web/mobile applications — especially developer tools, small business solutions, or anything that improves digital experience.
 
 📬 Reach me on Instagram: _raffipoghosyan
